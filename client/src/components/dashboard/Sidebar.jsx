@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
 
@@ -8,46 +9,64 @@ const schoolName = "Vedanta Public School";
 const staffName = "Sudhanshu Shrivastav";
 
 const sidebarItems = [
-    { name: "Home", icon: "ri-home-4-line" },
-    { name: "Manage Classes", icon: "ri-book-2-line" },
-    { name: "Staffs", icon: "ri-team-fill" },
-    { name: "Students", icon: "ri-user-2-fill" },
-    { name: "Fee Collection", icon: "ri-money-rupee-circle-line" },
-    { name: "Salary", icon: "ri-money-rupee-circle-fill" },
-    { name: "Transportation", icon: "ri-bus-line" },
-    { name: "Routine", icon: "ri-calendar-event-line" },
-    { name: "Settings", icon: "ri-settings-3-line" }
+    { name: "Home", icon: "ri-home-4-line", route: "/home" },
+    { name: "Manage Classes", icon: "ri-book-2-line", route: "/manageClasses"  },
+    { name: "Staffs", icon: "ri-team-fill", route: "/staffs" },
+    { name: "Students", icon: "ri-user-2-fill", route: "/students" },
+    { name: "Fee Collection", icon: "ri-money-rupee-circle-line", route: "/feeCollection" },
+    { name: "Salary", icon: "ri-money-rupee-circle-fill", route: "/salary" },
+    { name: "Transportation", icon: "ri-bus-line", route: "/transportation" },
+    { name: "Routine", icon: "ri-calendar-event-line", route: "/routine" },
+    { name: "Settings", icon: "ri-settings-3-line", route: "settings" },
 ]
 
     return(
         <>
             <section 
-                className = "h-screen w-[60vw] sm:w-[30vw] md:max-w-[220px] absolute md:sticky top-0 bg-[#001C27] shadow-2xl flex flex-col justify-between text-white"
+                className = "h-screen w-[60vw] sm:w-[30vw] md:max-w-[220px] absolute md:sticky top-0 bg-base-100 shadow-2xl flex flex-col justify-between text-white"
             >
 
                 {/* Staff Photo and Name */}
-                <div className = "flex justify-between items-center px-2 py-2">
+                <div className = "flex justify-center items-center px-2 py-2">
                     <div
                         className = "py-2"
                     >
                         {/* <img className = "w-10 rounded-full" src={school_logo} alt="" /> */}
-                        <h3 className = "text-sm font-semibold">{staffName}</h3>
+                        {/* <h3 className = "text-sm font-semibold">{staffName}</h3> */}
+                         <div className="flex-1 flex items-center gap-4">
+                            <img className="w-10 rounded-full " src = {school_logo} alt="" />
+                            <a className="text-lg font-semibold">Vedanta public School</a>
+                        </div>
                     </div>
-                    <i class="ri-menu-line text-white text-3xl flex-end"></i>
+
+                    {/* Burger Menu Icon */}
+                    {/* <i class="ri-menu-line text-white text-3xl flex-end"></i> */}
                 </div>
 
                 {/* Sidebar Navigation Options */}
-                <div>
+                <div >
                     {
                         sidebarItems.map((item, index) => (
-                            <div
+                            <NavLink
+                                to={item.route}
                                 key = {index}
-                                className = "flex items-center gap-2 px-4 py-2 hover:cursor-pointer hover:bg-[#002F3A] transition duration-200"
+                                className = {
+                                    ({isActive}) => (
+                                        isActive
+                                        ? "bg-slate-900"
+                                        : "bg-transparent"
+                                    )
+                                }
+                               
                             >
-                                <i className = {item.icon} />
-                                <span className = "text-md">{item.name}</span>
+                                <div
+                                     className = "flex items-center gap-2 bg-inherit px-4 py-2 hover:cursor-pointer hover:bg-gray-700 transition duration-200"
+                                >
+                                    <i className = {item.icon} />
+                                    <span className = "text-md">{item.name}</span>
+                                </div>
 
-                            </div>
+                            </NavLink>
                         ))
                     }
                 </div>
